@@ -130,6 +130,7 @@ void input_unique_name(member* first, member* last, char name[], unsigned char s
 			return;
 	}
 }
+
 //ファイルから読み込む
 void csv_load(member* first, member* last, const char* filename)
 {
@@ -251,10 +252,10 @@ void add_new_member(member* first, member* last, const char* filename)
 //ログイン処理とログイン中のコマンド受け付け＆実行処理
 void login_session(member* first, member* last, const char* filename)
 {
+	char id      [sizeof((member*)0)->id];
+	char password[sizeof((member*)0)->p ];
 	printf("idを入力してください。\n");
-	char id[sizeof((member*)0)->id];
-	char password[sizeof((member*)0)->p];
-	input_limited(id, sizeof id);
+	input_limited(id      , sizeof id      );
 	printf("パスワードを入力してください。\n");
 	input_limited(password, sizeof password);
 	member* const logged_in = find_member_by_id(first, last, id);
@@ -296,7 +297,7 @@ int main()
 {
 	static const char filename[] = "user_info.csv";
 	member member_info[5] = { 0 };
-	(void)csv_load(member_info, *((&member_info) + 1), filename);
+	csv_load(member_info, *((&member_info) + 1), filename);
 	for (;;) {
 		printf("以下のいずれかを選択してください。\n");
 		printf("1:会員登録, 2:ログイン, 0: 終了\n");
